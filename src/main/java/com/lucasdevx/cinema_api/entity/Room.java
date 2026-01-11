@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "TB_MOVIE")
+@Table(name = "TB_ROOM")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Movie implements Serializable{
+public class Room implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -27,13 +27,12 @@ public class Movie implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "title_movie", nullable = false, length = 255)
-	private String title;
+	@Column(name = "number_room", nullable = false, length = 2)
+	private int number;
 	
-	@Column(name = "duratin_movie", nullable = false, length = 11)
-	private int duration;
+	@Column(name = "capacity_room", nullable = false, length = 3)
+	private int capacity;
 	
-	@Column(name = "rating_movie", nullable = false, length = 2)
-	private int rating;
 	
+
 }
