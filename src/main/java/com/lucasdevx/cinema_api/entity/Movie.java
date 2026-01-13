@@ -27,13 +27,13 @@ public class Movie implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "title_movie", nullable = false, length = 255)
+	@Column(name = "movie_title", nullable = false, length = 255)
 	private String title;
 	
-	@Column(name = "duratin_movie", nullable = false, length = 11)
+	@Column(name = "movie_duration", nullable = false, length = 11)
 	private int duration;
 	
-	@Column(name = "rating_movie", nullable = false, length = 2)
+	@Column(name = "movie_rating", nullable = false, length = 2)
 	private int rating;
 	
 }

@@ -27,7 +27,7 @@ public class Genre implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "name_genre", nullable = false, length = 15)
+	@Column(name = "genre_genre", nullable = false, length = 15)
 	private String name;
 	
 }

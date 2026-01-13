@@ -28,6 +28,6 @@ public class Session implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "start_time_session", nullable = false, length = 15)
+	@Column(name = "session_start_time", nullable = false, length = 15)
 	private LocalDateTime startTime;
 }

@@ -27,10 +27,10 @@ public class Room implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "number_room", nullable = false, length = 2)
-	private int number;
+	@Column(name = "room_number", nullable = false, length = 2)
+	private String number;
 	
-	@Column(name = "capacity_room", nullable = false, length = 3)
+	@Column(name = "room_capacity", nullable = false, length = 3)
 	private int capacity;
 	
 	
