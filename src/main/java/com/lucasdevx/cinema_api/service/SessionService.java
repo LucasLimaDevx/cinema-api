@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.lucasdevx.cinema_api.dto.request.SessionRequestDTO;
 import com.lucasdevx.cinema_api.dto.response.SessionResponseDTO;
 import com.lucasdevx.cinema_api.entity.Session;
+import com.lucasdevx.cinema_api.exception.ObjectNotFoundException;
 import com.lucasdevx.cinema_api.repository.SessionRepository;
 
 @Service
@@ -30,7 +31,7 @@ public class SessionService {
 	public SessionResponseDTO findById(Long id) {
 
 		Session messionDB = sessionRepository.findById(id)
-				.orElseThrow(()-> new IllegalArgumentException("Object not found"));
+				.orElseThrow(()-> new ObjectNotFoundException("Object not found"));
 		
 		return toDTO(messionDB);
 	}
@@ -47,7 +48,7 @@ public class SessionService {
 	
 	public SessionResponseDTO update(SessionRequestDTO sessionRequestDTO, Long id) {
 		Session sessionDB = sessionRepository.findById(id)
-				.orElseThrow(()-> new IllegalArgumentException("Object not found"));
+				.orElseThrow(()-> new ObjectNotFoundException("Object not found"));
 		
 		sessionDB.setStartTime(sessionRequestDTO.startTime());
 		

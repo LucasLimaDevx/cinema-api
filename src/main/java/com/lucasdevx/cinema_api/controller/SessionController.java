@@ -38,7 +38,9 @@ public class SessionController {
 			value = "/{id}", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public SessionResponseDTO findById(@PathVariable Long id) {
-		
+		if(id <= 0) {
+			throw new IllegalArgumentException("Invalid id: " + id);
+		}
 		return sessionService.findById(id);
 	}
 	
@@ -53,13 +55,17 @@ public class SessionController {
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public SessionResponseDTO update(@PathVariable Long id, @RequestBody SessionRequestDTO sessionRequestDTO) {
-		
+		if(id <= 0) {
+			throw new IllegalArgumentException("Invalid id: " + id);
+		}
 		return sessionService.update(sessionRequestDTO, id);
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable Long id) {
-		
+		if(id <= 0) {
+			throw new IllegalArgumentException("Invalid id: " + id);
+		}
 		sessionService.deleteById(id);
 		
 		return ResponseEntity.noContent().build();

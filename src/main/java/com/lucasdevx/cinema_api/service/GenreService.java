@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.lucasdevx.cinema_api.dto.request.GenreRequestDTO;
 import com.lucasdevx.cinema_api.dto.response.GenreResponseDTO;
 import com.lucasdevx.cinema_api.entity.Genre;
+import com.lucasdevx.cinema_api.exception.ObjectNotFoundException;
 import com.lucasdevx.cinema_api.repository.GenreRepository;
 
 @Service
@@ -28,7 +29,7 @@ public class GenreService {
 	public GenreResponseDTO findById(Long id) {
 
 		Genre genreDB = genreRepository.findById(id)
-				.orElseThrow(()-> new IllegalArgumentException("Object not found"));
+				.orElseThrow(()-> new ObjectNotFoundException("Object not found"));
 		
 		return toDTO(genreDB);
 	}
@@ -45,7 +46,7 @@ public class GenreService {
 	
 	public GenreResponseDTO update(GenreRequestDTO genreRequestDTO, Long id) {
 		Genre genreDB = genreRepository.findById(id)
-				.orElseThrow(()-> new IllegalArgumentException("Object not found"));
+				.orElseThrow(()-> new ObjectNotFoundException("Object not found"));
 		
 		genreDB.setName(genreRequestDTO.name());
 		

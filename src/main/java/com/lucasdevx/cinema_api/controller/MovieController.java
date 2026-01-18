@@ -39,7 +39,9 @@ public class MovieController {
 			value = "/{id}", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public MovieResponseDTO findById(@PathVariable Long id) {
-		
+		if(id <= 0) {
+			throw new IllegalArgumentException("Invalid id: " + id);
+		}
 		return movieService.findById(id);
 	}
 	
@@ -54,13 +56,17 @@ public class MovieController {
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public MovieResponseDTO update(@PathVariable Long id, @RequestBody MovieRequestDTO movieRequestDTO) {
-		
+		if(id <= 0) {
+			throw new IllegalArgumentException("Invalid id: " + id);
+		}
 		return movieService.update(movieRequestDTO, id);
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable Long id) {
-		
+		if(id <= 0) {
+			throw new IllegalArgumentException("Invalid id: " + id);
+		}
 		movieService.deleteById(id);
 		
 		return ResponseEntity.noContent().build();

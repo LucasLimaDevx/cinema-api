@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.lucasdevx.cinema_api.dto.request.RoomRequestDTO;
 import com.lucasdevx.cinema_api.dto.response.RoomResponseDTO;
 import com.lucasdevx.cinema_api.entity.Room;
+import com.lucasdevx.cinema_api.exception.ObjectNotFoundException;
 import com.lucasdevx.cinema_api.repository.RoomRepository;
 
 @Service
@@ -28,7 +29,7 @@ public class RoomService {
 	public RoomResponseDTO findById(Long id) {
 
 		Room RoomDB = roomRepository.findById(id)
-				.orElseThrow(()-> new IllegalArgumentException("Object not found"));
+				.orElseThrow(()-> new ObjectNotFoundException("Object not found"));
 		
 		return toDTO(RoomDB);
 	}
@@ -45,7 +46,7 @@ public class RoomService {
 	
 	public RoomResponseDTO update(RoomRequestDTO roomRequestDTO, Long id) {
 		Room RoomDB = roomRepository.findById(id)
-				.orElseThrow(()-> new IllegalArgumentException("Object not found"));
+				.orElseThrow(()-> new ObjectNotFoundException("Object not found"));
 		
 		RoomDB.setNumber(roomRequestDTO.roomNumber());
 		RoomDB.setCapacity(roomRequestDTO.capacity());

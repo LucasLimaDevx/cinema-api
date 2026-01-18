@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.lucasdevx.cinema_api.dto.request.MovieRequestDTO;
 import com.lucasdevx.cinema_api.dto.response.MovieResponseDTO;
 import com.lucasdevx.cinema_api.entity.Movie;
+import com.lucasdevx.cinema_api.exception.ObjectNotFoundException;
 import com.lucasdevx.cinema_api.repository.MovieRepository;
 
 @Service
@@ -28,7 +29,7 @@ public class MovieService {
 	public MovieResponseDTO findById(Long id) {
 
 		Movie movieDB = movieRepository.findById(id)
-				.orElseThrow(()-> new IllegalArgumentException("Object not found"));
+				.orElseThrow(()-> new ObjectNotFoundException("Object not found"));
 		
 		return toDTO(movieDB);
 	}
@@ -45,7 +46,7 @@ public class MovieService {
 	
 	public MovieResponseDTO update(MovieRequestDTO movieRequestDTO, Long id) {
 		Movie movieDB = movieRepository.findById(id)
-				.orElseThrow(()-> new IllegalArgumentException("Object not found"));
+				.orElseThrow(()-> new ObjectNotFoundException("Object not found"));
 		
 		movieDB.setTitle(movieRequestDTO.title());
 		movieDB.setDuration(movieRequestDTO.duration());

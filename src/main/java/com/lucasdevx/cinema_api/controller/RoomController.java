@@ -39,7 +39,9 @@ public class RoomController {
 			value = "/{id}", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public RoomResponseDTO findById(@PathVariable Long id) {
-		
+		if(id <= 0) {
+			throw new IllegalArgumentException("Invalid id: " + id);
+		}
 		return roomService.findById(id);
 	}
 	
@@ -54,13 +56,17 @@ public class RoomController {
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public RoomResponseDTO update(@PathVariable Long id, @RequestBody RoomRequestDTO roomRequestDTO) {
-		
+		if(id <= 0) {
+			throw new IllegalArgumentException("Invalid id: " + id);
+		}
 		return roomService.update(roomRequestDTO, id);
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable Long id) {
-		
+		if(id <= 0) {
+			throw new IllegalArgumentException("Invalid id: " + id);
+		}
 		roomService.deleteById(id);
 		
 		return ResponseEntity.noContent().build();

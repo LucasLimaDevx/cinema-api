@@ -39,7 +39,9 @@ public class GenreController {
 			value = "/{id}", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public GenreResponseDTO findById(@PathVariable Long id) {
-		
+		if(id <= 0) {
+			throw new IllegalArgumentException("Invalid id: " + id);
+		}
 		return genreService.findById(id);
 	}
 	
@@ -54,13 +56,17 @@ public class GenreController {
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public GenreResponseDTO update(@PathVariable Long id, @RequestBody GenreRequestDTO genreRequestDTO) {
-		
+		if(id <= 0) {
+			throw new IllegalArgumentException("Invalid id: " + id);
+		}
 		return genreService.update(genreRequestDTO, id);
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable Long id) {
-		
+		if(id <= 0) {
+			throw new IllegalArgumentException("Invalid id: " + id);
+		}
 		genreService.deleteById(id);
 		
 		return ResponseEntity.noContent().build();
