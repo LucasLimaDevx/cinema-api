@@ -2,6 +2,7 @@ package com.lucasdevx.cinema_api.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,40 +30,40 @@ public class SessionController {
 	@PostMapping(
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public SessionResponseDTO insert(@RequestBody SessionRequestDTO sessionRequestDTO) {
+	public ResponseEntity<SessionResponseDTO> insert(@RequestBody SessionRequestDTO sessionRequestDTO) {
 		
-		return sessionService.insert(sessionRequestDTO);
+		return new ResponseEntity<>(sessionService.insert(sessionRequestDTO), HttpStatus.CREATED);
 	}
 	
 	@GetMapping(
 			value = "/{id}", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public SessionResponseDTO findById(@PathVariable Long id) {
+	public ResponseEntity<SessionResponseDTO> findById(@PathVariable Long id) {
 		if(id <= 0) {
 			throw new IllegalArgumentException("Invalid id: " + id);
 		}
-		return sessionService.findById(id);
+		return ResponseEntity.ok(sessionService.findById(id));
 	}
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<SessionResponseDTO> findAll() {
+	public ResponseEntity<List<SessionResponseDTO>> findAll() {
 		
-		return sessionService.findAll();
+		return ResponseEntity.ok(sessionService.findAll());
 	}
 	
 	@PutMapping(
 			value = "/{id}",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public SessionResponseDTO update(@PathVariable Long id, @RequestBody SessionRequestDTO sessionRequestDTO) {
+	public ResponseEntity<SessionResponseDTO> update(@PathVariable Long id, @RequestBody SessionRequestDTO sessionRequestDTO) {
 		if(id <= 0) {
 			throw new IllegalArgumentException("Invalid id: " + id);
 		}
-		return sessionService.update(sessionRequestDTO, id);
+		return ResponseEntity.ok(sessionService.update(sessionRequestDTO, id));
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> deleteById(@PathVariable Long id) {
+	public ResponseEntity<Void> deleteById(@PathVariable Long id) {
 		if(id <= 0) {
 			throw new IllegalArgumentException("Invalid id: " + id);
 		}

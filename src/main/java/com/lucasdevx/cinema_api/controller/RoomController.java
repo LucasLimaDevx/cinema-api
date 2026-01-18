@@ -2,6 +2,7 @@ package com.lucasdevx.cinema_api.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,40 +31,40 @@ public class RoomController {
 	@PostMapping(
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public RoomResponseDTO insert(@RequestBody RoomRequestDTO roomRequestDTO) {
+	public ResponseEntity<RoomResponseDTO> insert(@RequestBody RoomRequestDTO roomRequestDTO) {
 		
-		return roomService.insert(roomRequestDTO);
+		return new ResponseEntity<>(roomService.insert(roomRequestDTO), HttpStatus.CREATED);
 	}
 	
 	@GetMapping(
 			value = "/{id}", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public RoomResponseDTO findById(@PathVariable Long id) {
+	public ResponseEntity<RoomResponseDTO> findById(@PathVariable Long id) {
 		if(id <= 0) {
 			throw new IllegalArgumentException("Invalid id: " + id);
 		}
-		return roomService.findById(id);
+		return ResponseEntity.ok(roomService.findById(id));
 	}
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<RoomResponseDTO> findAll() {
+	public ResponseEntity<List<RoomResponseDTO>> findAll() {
 		
-		return roomService.findAll();
+		return ResponseEntity.ok(roomService.findAll());
 	}
 	
 	@PutMapping(
 			value = "/{id}",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public RoomResponseDTO update(@PathVariable Long id, @RequestBody RoomRequestDTO roomRequestDTO) {
+	public ResponseEntity<RoomResponseDTO> update(@PathVariable Long id, @RequestBody RoomRequestDTO roomRequestDTO) {
 		if(id <= 0) {
 			throw new IllegalArgumentException("Invalid id: " + id);
 		}
-		return roomService.update(roomRequestDTO, id);
+		return ResponseEntity.ok(roomService.update(roomRequestDTO, id));
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> deleteById(@PathVariable Long id) {
+	public ResponseEntity<Void> deleteById(@PathVariable Long id) {
 		if(id <= 0) {
 			throw new IllegalArgumentException("Invalid id: " + id);
 		}

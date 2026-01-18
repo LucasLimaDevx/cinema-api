@@ -2,6 +2,7 @@ package com.lucasdevx.cinema_api.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,19 +31,19 @@ public class GenreController {
 	@PostMapping(
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public GenreResponseDTO insert(@RequestBody GenreRequestDTO genreRequestDTO) {
+	public ResponseEntity<GenreResponseDTO> insert(@RequestBody GenreRequestDTO genreRequestDTO) {
 		
-		return genreService.insert(genreRequestDTO);
+		return new ResponseEntity<>(genreService.insert(genreRequestDTO), HttpStatus.CREATED);
 	}
 	
 	@GetMapping(
 			value = "/{id}", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public GenreResponseDTO findById(@PathVariable Long id) {
+	public ResponseEntity<GenreResponseDTO> findById(@PathVariable Long id) {
 		if(id <= 0) {
 			throw new IllegalArgumentException("Invalid id: " + id);
 		}
-		return genreService.findById(id);
+		return ResponseEntity.ok(genreService.findById(id));
 	}
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,15 +56,15 @@ public class GenreController {
 			value = "/{id}",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public GenreResponseDTO update(@PathVariable Long id, @RequestBody GenreRequestDTO genreRequestDTO) {
+	public ResponseEntity<GenreResponseDTO> update(@PathVariable Long id, @RequestBody GenreRequestDTO genreRequestDTO) {
 		if(id <= 0) {
 			throw new IllegalArgumentException("Invalid id: " + id);
 		}
-		return genreService.update(genreRequestDTO, id);
+		return ResponseEntity.ok(genreService.update(genreRequestDTO, id));
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> deleteById(@PathVariable Long id) {
+	public ResponseEntity<Void> deleteById(@PathVariable Long id) {
 		if(id <= 0) {
 			throw new IllegalArgumentException("Invalid id: " + id);
 		}
